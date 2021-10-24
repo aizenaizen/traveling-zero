@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class ZeroController extends Controller
 {
+	// DRAFT CODES
     public function path_finder() {
 		$array = [
 			[0,0,0,1,0],

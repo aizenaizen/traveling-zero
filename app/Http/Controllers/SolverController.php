@@ -41,6 +41,8 @@ class SolverController extends Controller
 				if(!isset($array[$x_neigbhor][$y_neigbhor]) || (isset($array[$x_neigbhor][$y_neigbhor]) && $array[$x_neigbhor][$y_neigbhor] == 1) || isset($explored[$x_neigbhor][$y_neigbhor])) continue;	
 				
 				$stack[] = [$x_neigbhor, $y_neigbhor];
+						
+				// Algorithm Improvement. Node search will stop and immediately proceed on end node if one of the neighbor is the end node.
 				// if($x_neigbhor == $end[0] && $y_neigbhor == $end[1]) break;
 				
 			}
@@ -73,6 +75,7 @@ class SolverController extends Controller
 			$current_node = array_shift($queue);
 			$path[] = $current_node;
 			$curr_coord = $current_node['coordinates'];
+			// Additional Feature. Will record the distance of neighbor nodes when travelling away from the start point, to know the fewest steps needed from start to end point.
 			// $curr_distn = $current_node['distance'];
 			
 			$nodes_visited[] = "({$curr_coord[0]},{$curr_coord[1]})";
