@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 
-<input type="hidden" class="matrix" value="{{json_encode($array)}}">
+<input type="hidden" class="matrix" value="{{json_encode($maze)}}">
 <input type="hidden" class="point_one" value="{{json_encode($point_one)}}">
 <input type="hidden" class="point_two" value="{{json_encode($point_two)}}">
 <input type="hidden" class="url" value="/api/{{$algorithm}}">
@@ -11,7 +11,7 @@
 	<div class="row">
 		<div class="col-sm">
 			<table class="table-matrix" style="border: 5px solid gray; float: left; margin-right: 20px">
-				@foreach($array as $i => $row)
+				@foreach($maze as $i => $row)
 					<tr>
 						@foreach($row as $j => $col)
 							<td align="center" style="border: 1px solid black; font-family: monospace; font-size: 50px; width: 50px; height: 50px;" class="{{(($i == $point_one[0] && $j == $point_one[1]) || ($i == $point_two[0] && $j == $point_two[1])) ? 'point' : 'path'}}">
@@ -65,7 +65,7 @@
 						let node = exp.replace('(', '').replace(')', '').split(',');
 						$('.table-matrix').find('tr').eq(node[0]).find('td').eq(node[1]).css('background-color','#fdccd4');
 						if(result.explored_nodes.length == (ii+1)) path()
-					}, i * {{400/count($array)}});
+					}, i * {{400/count($maze)}});
 				}
 				
 				function path() {

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class MatrixController extends Controller
 {
     public function index($algorithm, $dimension = 5, $start = null, $end = null, $wall_probability = 25) {
-		$array = [];
+		$maze = [];
+
 		$point_one = $start == null ? [0,0] : explode(',', $start);
 		$point_two = $end == null ? [$dimension-1, $dimension-1] : explode(',', $end);
 		for($row = 0; $row < $dimension; $row++){
@@ -17,13 +18,13 @@ class MatrixController extends Controller
 				} else {
 					$zero_one = rand(0, 100) < $wall_probability ? 1 : 0;
 				}
-				$array[$row][$col] = $zero_one;
+				$maze[$row][$col] = $zero_one;
 			}
 		}
 		
 		// $point_one = [0,1];
 		// $point_two = [3,4];
-		// $array = [
+		// $maze = [
 			// [0,0,0,1,0],
 			// [0,1,1,0,1],
 			// [0,0,0,1,1],
@@ -32,7 +33,7 @@ class MatrixController extends Controller
 		// ];
 		// $point_one = [0,1];
 		// $point_two = [4,4];
-		// $array = [
+		// $maze = [
 			// [0,0,0,0,0],
 			// [0,0,0,0,0],
 			// [0,0,0,0,0],
@@ -40,7 +41,7 @@ class MatrixController extends Controller
 			// [0,0,0,0,0]
 		// ];
 		
-		return view('display', compact('array', 'point_one', 'point_two', 'algorithm'));
+		return view('display', compact('maze', 'point_one', 'point_two', 'algorithm'));
 	}
 	
 }

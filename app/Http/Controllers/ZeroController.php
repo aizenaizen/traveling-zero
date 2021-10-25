@@ -23,9 +23,9 @@ class ZeroController extends Controller
 		$this->dfs($array, $start, $end);
 		echo '--------';
 		$this->bfs($array, $start, $end);
-		// $this->astar($array, $start, $end);
 	}
-	
+	// DRAFT CODES
+	// DRAFT CODES
 	public function dfs($array, $start, $end) {
 		dump("Start: ({$start[0]},{$start[1]}), End: ({$end[0]},{$end[1]}). DFS Start");
 		$directions = [[0,1], [0,-1], [1,0], [-1,0]];
@@ -67,7 +67,8 @@ class ZeroController extends Controller
 		dump('No Possible Paths');
 		return;
 	}
-	
+	// DRAFT CODES
+	// DRAFT CODES
 	public function bfs($array, $start, $end) {
 		dump("Start: ({$start[0]},{$start[1]}), End: ({$end[0]},{$end[1]}). BFS Start.");
 		$row_num = [-1, 0, 0, 1];
@@ -116,73 +117,5 @@ class ZeroController extends Controller
 		dump('No Possible Paths');
 		return;
 	}
-	
-	public function astar($array, $start, $end) {
-		dump("Start: ({$start[0]},{$start[1]}), End: ({$end[0]},{$end[1]}). Astar Start.");
-		$row_num = [-1, 0, 0, 1];
-		$col_num = [0, -1, 1, 0];
-		
-		$open_set[] = [
-			'coordinates' => [$start[0],$start[1]],
-			'priority' => 0
-		];
-		
-		$closed_set[$start[0]][$start[1]] = true;
-		$closed_set_display = ["({$start[0]},{$start[1]})"];
-		$h_func = function(){
-			return 1;
-		};
-		
-		$g_scores = [];
-		foreach($array as $ii => $row) {
-			foreach($row as $jj => $col) {
-				if($col == 1) continue;
-				$g_scores["{$ii}_{$jj}"] = $ii+$jj;
-			}
-		}
-		
-		die;
-		while(!empty($open_set)) {
-			$nodes = array_column($open_set, 'priority');
-			$current_node = $open_set[array_search(min($nodes), $nodes)];
-		
-			$curr_coord = $current_node['coordinates'];
-			$closed_set_display[] = "({$curr_coord[0]},{$curr_coord[1]})";
-			
-			if($curr_coord[0] == $end[0] && $curr_coord[1] == $end[1]) {
-				dump("Destination found. ");
-				dump($nodes_visited);
-				return;
-			}
-			
-			$curr_node_key = array_search($current_node['coordinates'], array_column($open_set, 'coordinates'));
-			unset($open_set[$curr_node_key]);
-			$closed_set[$curr_coord[0]][$curr_coord[1]] = true;
-			
-			
-			for ($i = 0; $i < 4; $i++) {
-				$row = $curr_coord[0] + $row_num[$i];
-				$col = $curr_coord[1] + $col_num[$i];
-				
-						
-				if((isset($array[$row][$col]) && $array[$row][$col] != 1) && !isset($visited[$row][$col])) {
-					$visited[$row][$col] = true;
-					
-					$ix_score = "{$curr_coord[0]}_{$curr_coord[1]}";
-					$g_score = $g_scores[$ix_score] /*+ d_calc*/;
-					$f_score = $g_score + $h_func[$ix_score];
-					$to_queue = [
-						'coordinates' => [$row,$col],
-						'priority' => $f_score
-					];
-					
-					$queue[] = $to_queue;
-				}
-			}
-			dd($queue);
-			
-		}
-		dump('No Possible Paths');
-		return;
-	}
+	// DRAFT CODES
 }
